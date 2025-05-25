@@ -1,45 +1,64 @@
-# Laporan Proyek Machine Learning - Nama Anda
+# Laporan Proyek Machine Learning - Viby Ladyscha Yalasena Winarno
 
 ## Domain Proyek
 
-Pada bagian ini, kamu perlu menuliskan latar belakang yang relevan dengan proyek yang diangkat.
+Sumber daya alam terdiri dari berbagai sektor penting, seperti kelautan, pertambangan, dan pertanian. Di antara sektor-sektor tersebut, pertanian memegang peranan penting dalam mendukung ketahanan pangan dan perekonomian nasional. Seiring berkembangnya teknologi, sektor ini turut mengalami transformasi melalui penerapan pertanian presisi, yaitu pendekatan yang mengandalkan data untuk mengoptimalkan penggunaan input sesuai kebutuhan spesifik tanaman. Tujuan dari pertanian presisi adalah meningkatkan efisiensi, mengurangi biaya produksi, serta menghasilkan panen yang lebih berkualitas. Implementasi pertanian presisi dapat dilakukan dari level sederhana hingga kompleks, bergantung pada tingkat akurasi yang diinginkan dan skala investasi teknologi yang digunakan [[1](https://repository.pertanian.go.id/handle/123456789/13673)].
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Jelaskan mengapa dan bagaimana masalah tersebut harus diselesaikan
-- Menyertakan hasil riset terkait atau referensi. Referensi yang diberikan harus berasal dari sumber yang kredibel dan author yang jelas.
-- Format Referensi dapat mengacu pada penulisan sitasi [IEEE](https://journals.ieeeauthorcenter.ieee.org/wp-content/uploads/sites/7/IEEE_Reference_Guide.pdf), [APA](https://www.mendeley.com/guides/apa-citation-guide/) atau secara umum seperti [di sini](https://penerbitdeepublish.com/menulis-buku-membuat-sitasi-dengan-mudah/)
-- Sumber yang bisa digunakan [Scholar](https://scholar.google.com/)
+Salah satu penerapan penting dari konsep ini adalah dalam menentukan jenis pupuk yang tepat, disesuaikan dengan karakteristik tanaman dan kondisi lingkungan. Pemilihan pupuk yang akurat berperan besar dalam meningkatkan produktivitas pertanian. Namun, kenyataannya banyak petani masih menghadapi kesulitan dalam menentukan pupuk yang optimal, karena proses identifikasi manual terhadap komposisi pupuk dan kondisi lahan memerlukan waktu dan pengetahuan teknis yang cukup tinggi [[2](https://ojs.udb.ac.id/index.php/Senatib/article/view/1922)]. Faktor-faktor seperti pH tanah, suhu, kelembaban, dan curah hujan menjadi penentu penting dalam pemilihan jenis pupuk [[3](https://journal.uniga.ac.id/index.php/JPPB/article/view/959)].  Oleh karena itu, dibutuhkan sebuah sistem rekomendasi pupuk berbasis *predictive analysis* yang mampu mengolah data lingkungan secara otomatis untuk memberikan rekomendasi pupuk yang optimal. Dengan menggunakan pendekatan tersebut, sistem ini dapat membantu petani dalam mengambil keputusan secara cepat dan akurat, meningkatkan efisiensi pemupukan, serta berkontribusi pada peningkatan produktivitas hasil pertanian.
 
 ## Business Understanding
 
-Pada bagian ini, kamu perlu menjelaskan proses klarifikasi masalah.
-
-Bagian laporan ini mencakup:
+Penggunaan pupuk yang tepat menjadi faktor kunci dalam meningkatkan produktivitas pertanian khususnya dalam konteks pertanian presisi. Namun, banyak petani masih mengalami kesulitan dalam menentukan jenis pupuk yang sesuai dengan kondisi lahan mereka secara cepat dan akurat. Oleh karena itu, dibutuhkan sistem berbasis data yang mampu memberikan rekomendasi jenis pupuk yang optimal secara otomatis. Proyek ini bertujuan untuk membangun sistem prediksi jenis pupuk menggunakan algoritma *machine learning* berbasis data lingkungan seperti pH tanah, suhu, kelembaban, dan curah hujan. Dengan pendekatan tersebut, diharapkan sistem ini dapat membantu petani dalam pengambilan keputusan yang lebih tepat, efisien, dan berbasis data.
 
 ### Problem Statements
 
-Menjelaskan pernyataan masalah latar belakang:
-- Pernyataan Masalah 1
-- Pernyataan Masalah 2
-- Pernyataan Masalah n
+Berdasarkan permasalahan yang diuraikan dalam latar belakang, proyek ini bertujuan menjawab beberapa pertanyaan berikut:
+1. Bagaimana membangun model prediksi yang mampu memprediksi jenis pupuk yang tepat berdasarkan fitur seperti kondisi tanah, lingkungan, dan jenis tanaman?
+   - Masalah ini timbul karena pemilihan pupuk yang selama ini dilakukan secara manual memerlukan waktu, tenaga, dan pengetahuan teknis yang tidak selalu dimiliki oleh petani.
+2. Bagaimana meningkatkan akurasi model prediksi pupuk menggunakan teknik *machine learning* yang tepat?
+   - Model prediksi memerlukan pengolahan data dan pengaturan parameter yang optimal agar dapat memberikan hasil yang akurat.
+3. Bagaimana sistem ini dapat membantu petani dalam meningkatkan efisiensi pemupukan dan produktivitas pertanian?
+   - Sistem yang mampu memberikan rekomendasi pupuk secara otomatis akan mempermudah pengambilan keputusan, mengurangi kesalahan penggunaan pupuk, dan meningkatkan hasil panen.
 
 ### Goals
 
-Menjelaskan tujuan dari pernyataan masalah:
-- Jawaban pernyataan masalah 1
-- Jawaban pernyataan masalah 2
-- Jawaban pernyataan masalah n
+Untuk menjawab permasalahan yang telah dirumuskan, tujuan dari proyek ini meliputi:
+1. Mengembangkan model prediksi menggunakan algoritma *machine learning* untuk memprediksi jenis pupuk berdasarkan parameter seperti kondisi tanah, lingkungan, dan jenis tanaman.
+2. Meningkatkan performa model prediksi melalui teknik *oversampling* dan *hyperparameter tuning*.
+3. Menyediakan solusi berbasis data yang dapat digunakan oleh petani untuk meningkatkan efisiensi pemupukan dan hasil pertanian.
 
-Semua poin di atas harus diuraikan dengan jelas. Anda bebas menuliskan berapa pernyataan masalah dan juga goals yang diinginkan.
+### Solution statements
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Menambahkan bagian “Solution Statement” yang menguraikan cara untuk meraih goals. Bagian ini dibuat dengan ketentuan sebagai berikut: 
-
-    ### Solution statements
-    - Mengajukan 2 atau lebih solution statement. Misalnya, menggunakan dua atau lebih algoritma untuk mencapai solusi yang diinginkan atau melakukan improvement pada baseline model dengan hyperparameter tuning.
-    - Solusi yang diberikan harus dapat terukur dengan metrik evaluasi.
+Untuk mencapai tujuan yang telah ditetapkan, solusi yang diusulkan dalam proyek ini adalah sebagai berikut:
+1. Membangun model prediksi dengan algoritma *Random Forest* karena algoritma ini memiliki kemampuan yang baik dalam menangani fitur numerik dan non-linear serta mengurangi risiko *overfitting*. Model ini digunakan sebagai *baseline* dalam memprediksi jenis pupuk berdasarkan parameter seperti kondisi tanah, lingkungan, dan jenis tanaman.
+2. Melakukan *hyperparameter tuning* terhadap model *Random Forest* seperti mengatur jumlah *estimators*, *max depth*, dan *criterion* untuk mendapatkan akurasi yang lebih optimal dibandingkan dengan model *default*. Evaluasi akan dilakukan dengan menggunakan metrik seperti *accuracy*, *precision*, *recall*, dan *F1-score*.
 
 ## Data Understanding
+
+Pada proyek ini saya menggunakan data sekunder yang diunduh dari situs dataset *online* Kaggle dengan judul “[Crop and Fertilizer Dataset for Western Maharashtra](https://www.kaggle.com/datasets/sanchitagholap/crop-and-fertilizer-dataset-for-westernmaharashtra/data?select=Crop+and+fertilizer+dataset.csv)”. Dataset disimpan dalam file dengan format .CSV yang kemudian akan digunakan dalam proses pengolahan data. Dataset ini berisi 4.513 baris dengan 11 variabel. 
+
+### Variabel-variabel pada dataset
+
+| **Nama Variabel**  | **Deskripsi**                                                                 |
+|--------------------|------------------------------------------------------------------------------|
+| **District Name**  | Nama dari distrik-distrik yang berada di wilayah Maharashtra Barat.          |
+| **Soil color**     | Warna tanah yang terdapat di distrik tertentu.                               |
+| **Nitrogen**       | Nilai kandungan nitrogen dalam tanah.                                        |
+| **Potassium**      | Nilai kandungan kalium (potasium) dalam tanah.                              |
+| **Phosphorus**     | Nilai kandungan fosfor dalam tanah.                                          |
+| **pH**             | Tingkat keasaman atau kebasaan tanah (nilai pH).                             |
+| **Rainfall**       | Tingkat curah hujan di wilayah tersebut.                                     |
+| **Temperature**    | Tingkat suhu rata-rata di wilayah tersebut.                                  |
+| **Crop**           | Nama berbagai jenis tanaman yang dibudidayakan.                              |
+| **Fertilizer**     | Nama pupuk yang sesuai untuk tanaman tertentu.                               |
+| **Link**           | Tautan video YouTube (cara merawat tanaman).                                 |
+
+Dari seluruh variabel yang ada, saya hanya menggunakan 8 variabel yang berpengaruh dalam memprediksi pupuk, antara lain:
+> Soil color, Nitrogen, Potassium, Phosphorus, pH, Rainfall, Temperature, dan Crop
+
+Adapun variabel yang dihapus atau tidak digunakan dalam model prediksi karena tidak relevan untuk analisis dan tidak mempengaruhi model. Variabel tersebut antara lain:
+> District Name dan Link
+
 Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
 
 Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
@@ -70,7 +89,7 @@ Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyel
 ## Evaluation
 Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
 
-Sebagai contoh, Anda memiih kasus klasifikasi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
+Sebagai contoh, Anda memiih kasus prediksi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
 - Penjelasan mengenai metrik yang digunakan
 - Menjelaskan hasil proyek berdasarkan metrik evaluasi
 
@@ -81,6 +100,9 @@ Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, probl
 
 **---Ini adalah bagian akhir laporan---**
 
-_Catatan:_
-- _Anda dapat menambahkan gambar, kode, atau tabel ke dalam laporan jika diperlukan. Temukan caranya pada contoh dokumen markdown di situs editor [Dillinger](https://dillinger.io/), [Github Guides: Mastering markdown](https://guides.github.com/features/mastering-markdown/), atau sumber lain di internet. Semangat!_
-- Jika terdapat penjelasan yang harus menyertakan code snippet, tuliskan dengan sewajarnya. Tidak perlu menuliskan keseluruhan kode project, cukup bagian yang ingin dijelaskan saja.
+## References
+[1] J. Pitono, "Pertanian presisi dalam budidaya lada the precision farming on pepper cultivation," Perspektif, vol. 18, no. 2, pp. 1279–1300, 2020.
+
+[2] N. R. Imanuloh, R. Kuswulandari, T. Listiani, and D. Hartanti, "Sistem Pendukung Keputusan Pemilihan Pupuk Terbaik untuk Tanaman Padi di Desa Panggisari dengan Metode Fuzzy," in Prosiding Seminar Nasional Teknologi Informasi dan Bisnis (SENATIB), 2022.
+
+[3] A. Rukmana, H. Susilawati, and Galang, "Pencatat pH Tanah Otomatis," Journal Universitas Garut, vol. 10, no. 1, pp. 25, 2019.
