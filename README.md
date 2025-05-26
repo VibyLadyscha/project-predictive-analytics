@@ -109,7 +109,7 @@ Setelah dilakukan visualisasi distribusi, terlihat bahwa frekuensi setiap variab
 Agar dapat diproses oleh model *machine learning*, perlu dilakukan perubahan variabel kategorik menjadi variabel numerik terlebih dahulu sehingga model dapat mempelajarinya dengan efektif.
 
 1. Label Encoding
-   - Pada tahap ini, dilakukan transformasi terhadap variabel kategorikal `Soil_color,` `Crop`, dan `Fertilizer` menjadi representasi numerik menggunakan teknik *Label Encoding*. Teknik ini digunakan karena beberapa algoritma machine learning, salah satunya *Random Forest* dapat bekerja langsung dengan data numerik.
+   - Pada tahap ini, dilakukan transformasi terhadap variabel kategorikal `Soil_color,` `Crop`, dan `Fertilizer` menjadi representasi numerik menggunakan teknik *Label Encoding*. Teknik ini digunakan karena beberapa algoritma *machine learning*, salah satunya *Random Forest* dapat bekerja langsung dengan data numerik.
    - *Label encoding* diperlukan agar variabel kategorikal dapat diolah dengan baik oleh model. Selain itu, encoder ini disimpan untuk proses *inverse transform* di tahap interpretasi hasil.
 2. One-Hot Encoding
    - Setelah dilakukan *label encoding*, variabel kategorikal seperti `Soil_color` dan `Crop` kemudian dikonversi menjadi bentuk *one-hot encoding*. Teknik ini digunakan untuk menghindari pemodelan urutan atau hierarki yang salah pada data kategorikal.
@@ -148,14 +148,14 @@ Pada proyek ini, modeling dilakukan menggunakan algoritma *Random Forest*. *Rand
       ```
    - Kelebihan *Random Forest*:
      - Mampu menangani fitur numerik dan kategorikal dengan baik.
-     - Kuat terhadap overfitting karena menggunakan banyak pohon keputusan.
+     - Kuat terhadap *overfitting* karena menggunakan banyak pohon keputusan.
      - Memberikan estimasi pentingnya fitur.
    - Kekurangan *Random Forest*:
      - Waktu pelatihan lebih lama dibanding model yang lebih sederhana.
      - Sulit untuk diinterpretasi karena merupakan ensemble model.
 
 2. *Random Forest Hyperparameter Tuning*
-   - Proses hyperparameter tuning dengan mengatur beberapa parameter penting.
+   - Proses *hyperparameter tuning* dengan mengatur beberapa parameter penting.
     ```python
        rf_model_tunned = MultiOutputClassifier(
        RandomForestClassifier(
@@ -168,33 +168,103 @@ Pada proyek ini, modeling dilakukan menggunakan algoritma *Random Forest*. *Rand
        rf_model_tunned.fit(X_train_resampled, y_train_resampled)
     ```
    - Penjelasan parameter yang digunakan:
-      - `max_depth=15` → untuk membatasi kedalaman pohon dan mengurangi risiko overfitting.
+      - `max_depth=15` → untuk membatasi kedalaman pohon dan mengurangi risiko *overfitting*.
       - `max_features='sqrt'` → agar setiap pohon menggunakan subset fitur secara acak.
       - `min_samples_split=5` → untuk mengontrol jumlah minimum sampel yang dibutuhkan agar sebuah node dapat di-split.
-   - Model tuned diharapkan memberikan performa yang lebih baik di data pengujian karena telah disesuaikan untuk menangani kompleksitas data secara lebih optimal dibandingkan model default. Evaluasi dilakukan menggunakan metrik accuracy, precision, recall, dan F1-score terhadap data uji untuk melihat sejauh mana tuning memberikan dampak terhadap prediksi.
-
-Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan kelebihan dan kekurangan dari setiap algoritma yang digunakan.
-- Jika menggunakan satu algoritma pada solution statement, lakukan proses improvement terhadap model dengan hyperparameter tuning. **Jelaskan proses improvement yang dilakukan**.
-- Jika menggunakan dua atau lebih algoritma pada solution statement, maka pilih model terbaik sebagai solusi. **Jelaskan mengapa memilih model tersebut sebagai model terbaik**.
+   - Model tuned diharapkan memberikan performa yang lebih baik di data pengujian karena telah disesuaikan untuk menangani kompleksitas data secara lebih optimal dibandingkan model *default*. Evaluasi dilakukan menggunakan metrik *Accuracy*, *Precision*, *Recall*, dan *F1-score* terhadap data uji untuk melihat sejauh mana tuning memberikan dampak terhadap prediksi.
 
 ## Evaluation
-Pada bagian ini anda perlu menyebutkan metrik evaluasi yang digunakan. Lalu anda perlu menjelaskan hasil proyek berdasarkan metrik evaluasi yang digunakan.
 
-Sebagai contoh, Anda memiih kasus prediksi dan menggunakan metrik **akurasi, precision, recall, dan F1 score**. Jelaskan mengenai beberapa hal berikut:
-- Penjelasan mengenai metrik yang digunakan
-- Menjelaskan hasil proyek berdasarkan metrik evaluasi
+Metrik evaluasi yang digunakan untuk mengevaluasi model setelah dilakukan pelatihan terdiri dari *Confusion Matrix*, *Accuracy8, *Precision*, *Recall*, *F1-score*.
 
-Ingatlah, metrik evaluasi yang digunakan harus sesuai dengan konteks data, problem statement, dan solusi yang diinginkan.
+### Confusion Matrix
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan formula metrik dan bagaimana metrik tersebut bekerja.
+*Confusion Matrix* adalah matriks persegi berukuran N x N, dengan N merupakan jumlah kelas keluaran (*output*). Tiap baris pada matriks merepresentasikan jumlah nilai yang diprediksi dan tiap kolom merepresentasikan jumlah nilai sebenarnya. *Confusion matrix* menunjukkan performa dari model, misalnya banyak prediksi yang benar atau banyak kesalahan yang dilakukan. Banyak nilai yang ditunjukkan terbagi menjadi empat tipe:
+1. *True Positive* (TP): Model memprediksi hasil positif secara benar. Hasil prediksi dan hasil sebenarnya adalah positif.
+2. *False Positive* (FP): Model salah memprediksi hasil positif. Hasil prediksi bernilai positif, sedangkan hasil sebenarnya adalah negatif. Biasa disebut dengan Type I error.
+3. *True Negative* (TN): Model memprediksi hasil negatif secara benar. Hasil prediksi dan hasil sebenarnya adalah negatif.
+4. *False Negative* (FN): Model salah memprediksi hasil negatif. Hasil prediksi bernilai negatif, sedangkan hasil sebenarnya adalah positif. Biasa disebut dengan Type II error.
 
-**---Ini adalah bagian akhir laporan---**
+#### Interpretasi Hasil
+
+1. *Random Forest Baseline*
+   
+   ![confusion matrix baseline](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Confusion%20Matrix%20Base.png)
+
+   - Berdasarkan *confusion matrix* tersebut, secara keseluruhan model dapat memprediksi seluruh kelas dengan baik, hanya ada beberapa kelas yang salah prediksi.
+   - Sebaran kelas terbanyak terdapat pada jenis pupuk `Urea`, `DAP`, `MOP`, `SSP`, `19:19:19 NPK`, dan `Magnesium Sulphate` dengan detail sebagai berikut.
+     - `Urea`: 249 benar, hanya beberapa salah diprediksi ke berbagai jenis NPK, "MOP", "SSP".
+     - `DAP`: 131 benar, hanya beberapa salah diprediksi sebagai "SSP" dan "Urea".
+     - `MOP`: 118 benar, hanya beberapa salah diprediksi sebagai "SSP", "Sulphur", dan "Urea".
+     - `SSP`: 67 benar.
+     - `Magnesium Sulphate`: 43 benar.
+     - `19:19:19 NPK`: 89 benar.
+
+2. *Random Forest Hyperparameter Tuning*
+   
+   ![confusion matrix tuning](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Confusion%20Matrix%20Tunned.png)
+
+   - Berdasarkan *confusion matrix* tersebut, secara keseluruhan model dapat memprediksi seluruh kelas dengan baik, hanya ada beberapa kelas yang salah prediksi.
+   - Sebaran kelas terbanyak terdapat pada jenis pupuk `Urea`, `DAP`, `MOP`, `SSP`, `19:19:19 NPK`, dan `Magnesium Sulphate` dengan detail sebagai berikut.
+     - `Urea`: 150 benar, hanya beberapa salah diprediksi ke berbagai jenis NPK, "MOP", "SSP" dan "DAP".
+     - `DAP`: 93 benar, hanya beberapa salah diprediksi sebagai "SSP" dan "Urea".
+     - `MOP`: 109 benar, hanya beberapa salah diprediksi sebagai "SSP", "Sulphur", dan "Urea".
+     - `SSP`: 62 benar.
+     - `Magnesium Sulphate`: 40 benar.
+     - `19:19:19 NPK`: 90 benar.
+   - Setelah dilakukan *hyperparameter tuning* justru hasil akurasi semakin turun jika dibandingkan dengan model *baseline*.
+
+### Accuracy
+
+*Accuracy* atau akurasi adalah seberapa sering prediksi yang dihasilkan suatu model bernilai benar. Akurasi berasal dari perbandingan antara jumlah hasil prediksi yang benar dengan total prediksi. Akurasi dapat dihitung dengan rumus:
+
+$$\text{Accuracy} = \frac{\text{TP} + \text{TN}}{\text{TP} + \text{TN} + \text{FP} + \text{FN}}\%$$
+
+### F1-score
+
+*F1-Score* adalah metrik evaluasi yang dihasilkan dari gabungan *precision* dan *recall*. *Precision* adalah bagian dari hasil positif yang diprediksi dengan benar. Metrik ini menunjukkan seberapa *confident* suatu model dalam memprediksi kelas positif sebagai positif. *Precision* dapat dihitung dengan rumus:
+
+$$\text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}\%$$
+
+Sedangkan, *recall* adalah metrik yang mengukur seberapa akurat suatu model memprediksi hasil positif. *Recall* dapat dihitung dengan rumus:
+
+$$\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}\%$$
+
+*F1-Score* didapatkan dari rata-rata harmonis dari *precision* dan *recall*. Rata-rata harmonis ini tidak hanya memperhatikan nilai prediksi yang benar, tetapi juga memperhatikan nilai prediksi yang salah. Metrik *F1-Score* dapat dihitung dengan rumus:
+
+$$\text{F1 Score} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$$
+
+#### Interpretasi Hasil
+
+| Model                  | Train Accuracy | Test Accuracy | Precision | Recall   | F1-Score |
+|------------------------|----------------|---------------|-----------|----------|----------|
+| Random Forest (Base)   | 0.999855       | 0.937984      | 0.938884  | 0.937984 | 0.937127 |
+| Random Forest (Tuned)  | 0.979247       | 0.770764      | 0.819864  | 0.770764 | 0.764513 |
+
+1. *Random Forest Baseline*
+   - *Train Accuracy* yang sangat tinggi yaitu 0.999855, menunjukkan bahwa model hampir sempurna mempelajari data latih.
+   - *Test Accuracy* juga tinggi yaitu 0.937984, menunjukkan performa yang sangat baik di data uji.
+   - *Precision*, *Recall*, dan *F1-Score* juga seimbang dan tinggi, sekitar 0.937.
+   - Akurasi training yang terlalu tinggi dibandingkan dengan akurasi testing bisa menjadi indikasi adanya *overfitting*, di mana model terlalu cocok dengan data latih namun berisiko kurang generalisasi ke data baru.
+
+2. *Random Forest Hyperparameter Tuning*
+   - Setelah dilakukan *tuning*, *Train Accuracy* turun menjadi 0.979247, menandakan bahwa model tidak terlalu overfit terhadap data pelatihan.
+   - *Test Accuracy* juga menurun secara signifikan menjadi 0.770764, menunjukkan penurunan performa di data uji.
+   - *Precision* dan *Recall* juga ikut menurun, meskipun masih cukup baik di angka 0.82 dan 0.77.
+   - *F1-Score* menurun menjadi 0.764 yang menunjukkan adanya *trade-off* akibat tuning. Hal tersebut kemungkinan terjadi karena model menjadi lebih sederhana, parameter yang dipilih kurang optimal, atau tuning berlebihan dalam menghindari *overfitting* hingga menurunkan akurasi model.
+
+## Summary
+
+Proyek ini berhasil membangun sistem prediksi jenis pupuk berbasis algoritma *machine learning* dengan pendekatan *Random Forest* menggunakan data lingkungan seperti pH tanah, suhu, kelembaban, curah hujan, dan jenis tanaman. Berdasarkan hasil evaluasi, model *Random Forest Baseline* menunjukkan performa terbaik dengan akurasi tinggi pada data uji sebesar 93.79%, serta nilai *Precision*, *Recall*, dan *F1-score* yang seimbang di kisaran 93.7%, mengindikasikan model mampu memberikan rekomendasi pupuk secara tepat dan konsisten.
+
+Ketika dilakukan *hyperparameter tuning* terhadap model, justru terjadi penurunan performa yang cukup signifikan, dengan akurasi uji menurun menjadi 77.07%. Hal ini menunjukkan bahwa model *baseline* sebenarnya sudah cukup optimal, dan penyesuaian parameter justru menurunkan kompleksitas model secara berlebihan sehingga mengurangi kemampuannya dalam menangkap pola pada data.
+
+Hasil ini menjawab problem utama yang diangkat yaitu bagaimana membangun model prediksi yang akurat untuk membantu petani dalam memilih jenis pupuk yang sesuai dengan kondisi lahannya. Sistem yang dibangun mampu mengatasi keterbatasan dalam pengambilan keputusan secara manual yang selama ini membutuhkan waktu, tenaga, dan pengetahuan teknis yang tinggi. Selain itu, model yang dihasilkan terbukti efektif dalam memproses data lingkungan dan memberikan rekomendasi pupuk secara otomatis, sehingga mendukung efisiensi dalam proses pemupukan dan berpotensi meningkatkan produktivitas pertanian. Keterkaitan antara hasil proyek ini dengan tujuan yang ditetapkan juga sangat jelas yaitu model prediktif berhasil dibangun dan dioptimalkan, meskipun *tuning* belum memberikan hasil yang lebih baik, serta solusi berbasis data berhasil diwujudkan sebagai alat bantu pengambilan keputusan bagi petani.
+
+Secara keseluruhan, proyek ini menunjukkan bahwa pendekatan *machine learning* sangat potensial untuk diterapkan dalam bidang pertanian presisi, khususnya untuk meningkatkan efektivitas pemupukan dan hasil pertanian melalui rekomendasi yang *data-driven*.
 
 ## References
+
 [1] J. Pitono, "Pertanian presisi dalam budidaya lada the precision farming on pepper cultivation," Perspektif, vol. 18, no. 2, pp. 1279–1300, 2020.
 
 [2] N. R. Imanuloh, R. Kuswulandari, T. Listiani, and D. Hartanti, "Sistem Pendukung Keputusan Pemilihan Pupuk Terbaik untuk Tanaman Padi di Desa Panggisari dengan Metode Fuzzy," in Prosiding Seminar Nasional Teknologi Informasi dan Bisnis (SENATIB), 2022.
