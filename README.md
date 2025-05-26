@@ -54,24 +54,72 @@ Pada proyek ini saya menggunakan data sekunder yang diunduh dari situs dataset *
 | **Link**           | Tautan video YouTube (cara merawat tanaman).                                 |
 
 Dari seluruh variabel yang ada, saya hanya menggunakan 8 variabel yang berpengaruh dalam memprediksi pupuk, antara lain:
-> Soil color, Nitrogen, Potassium, Phosphorus, pH, Rainfall, Temperature, dan Crop
+| **Soil color**  | **Nitrogen**   |
+|-----------------|----------------|
+| **Potassium**   | **Phosphorus** |
+| **pH**          | **Rainfall**   |
+| **Temperature** | **Crop**       |
 
 Adapun variabel yang dihapus atau tidak digunakan dalam model prediksi karena tidak relevan untuk analisis dan tidak mempengaruhi model. Variabel tersebut antara lain:
-> District Name dan Link
+| **District Name**  | **Link**   |
+|--------------------|------------|
 
-Paragraf awal bagian ini menjelaskan informasi mengenai data yang Anda gunakan dalam proyek. Sertakan juga sumber atau tautan untuk mengunduh dataset. Contoh: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Restaurant+%26+consumer+data).
+### EDA - Pengecekan Informasi Umum Data
 
-Selanjutnya uraikanlah seluruh variabel atau fitur pada data. Sebagai contoh:  
+- Setelah dilakukan *drop*/penghapusan variabel yang tidak relevan, dataset tersebut memiliki shape `(4513, 9)` yang menunjukkan jumlah baris dan variabel yang akan digunakan.
+- Tipe data pada setiap variabel cukup beragam, yaitu `int64`, `float64`, dan `object`.
+- Pengecekan statistik deskriptif juga dilakukan untuk melihat variasi data dengan hasil sebagai berikut.
+  
+  ![statistik deskriptif](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Screenshot%202025-05-26%20080032.png)
+  Berdasarkan hasil tersebut, dapat disimpulkan bahwa dataset tersebut menunjukkan kondisi agrikultur yang cukup beragam.
+- Setelah dilakukan pengecekan, dataset ini juga sudah dalam kondisi bersih yaitu tidak memiliki *missing value* maupun data duplikat.
 
-### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- accepts : merupakan jenis pembayaran yang diterima pada restoran tertentu.
-- cuisine : merupakan jenis masakan yang disajikan pada restoran.
-- dst
+### EDA - Pengecekan Outlier
+- Pengecekan outlier dilakukan pada data numerik dengan hasil sebagai berikut.
+  
+  ![outlier awal](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Outlier%20Awal.png)
+  Pada visualisasi tersebut outlier tidak terlihat jelas dikarenakan rentang data yang tidak sama antar variabel, sehingga perlu dilakukan normalisasi terlebih dahulu
+- Setelah dilakukan normalisasi, outlier semakin terlihat dengan jelas dan kemudian dilakukan teknik *Interquartile Range* untuk menangani outlier tersebut.
+  
+  ![outlier setelah normalisasi](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Outlier%20Setelah%20Normalisasi.png)
+  
+- Setelah diterapkan teknik *Interquartile Range*, pada boxplot terlihat tidak ada lagi outlier pada setiap variabel. Hasil dari penanganan outlier adalah sebagai berikut.
+  ![outlier cleaned](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Outlier%20Cleaned.png)
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
-- Melakukan beberapa tahapan yang diperlukan untuk memahami data, contohnya teknik visualisasi data atau exploratory data analysis.
+  Konsep *Interquartile Range (IQR)*:
+  - Identifikasi outlier dengan metode *Interquartile Range*, yaitu dengan menghitung selisih antara Q3 dan Q1.
+  - Nilai ekstrem di luar batas bawah `(Q1 - 1.5×IQR)` dan batas atas `(Q3 + 1.5×IQR)` dianggap outlier, lalu dilakukan capping atau penghapusan terhadap nilai-nilai tersebut.
+     - Jika x lebih kecil dari batas bawah, ganti dengan *lower_limit*, jika lebih besar dari batas atas, ganti dengan *upper_limit*.
+     - Jika tidak memenuhi keduanya, maka x tetap dipertahankan.
+
+### EDA - Analisis Univariate
+
+![univariate analysis](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Univariate%20Analysis.png)
+
+Setelah dilakukan visualisasi distribusi, terlihat bahwa frekuensi setiap variabel kategorik terutama variabel target tidak seimbang, sehingga diperlukan penanganan lebih lanjut untuk menghindari bias dalam memprediksi data yang distribusi kelasnya minoritas pada model.
+
+### EDA - Correlation Matrix
+
+![correlation matrix](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Matrix%20Correlation.png)
 
 ## Data Preparation
+
+### Encoding
+
+Agar dapat diproses oleh model *machine learning*, perlu dilakukan perubahan variabel kategorik menjadi variabel numerik terlebih dahulu.
+
+1. Label Encoding
+   Penjelasan
+2. One-Hot Encoding
+   Penjelasan
+
+### Splitting dan Oversampling
+
+1. Splitting Data
+   Penjelasan
+2. Oversampling Data
+   Penjelasan
+
 Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
 
 **Rubrik/Kriteria Tambahan (Opsional)**: 
@@ -79,6 +127,14 @@ Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dil
 - Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
 
 ## Modeling
+
+Pada proyek ini, modeling dilakukan menggunakan algoritma *Random Forest*. Selain menguji model *baseline*, saya juga melakukan *hyperparameter tuning* pada model tersebut untuk melihat apakah akurasi yang dihasilkan lebih baik atau tidak.
+
+1. *Random Forest Baseline*
+   Penjelasan
+2. *Random Forest Hyperparameter Tuning*
+   Penjelasan
+
 Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
 
 **Rubrik/Kriteria Tambahan (Opsional)**: 
