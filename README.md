@@ -70,21 +70,22 @@ Adapun variabel yang dihapus atau tidak digunakan dalam model prediksi karena ti
 - Tipe data pada setiap variabel cukup beragam, yaitu `int64`, `float64`, dan `object`.
 - Pengecekan statistik deskriptif juga dilakukan untuk melihat variasi data dengan hasil sebagai berikut.
   
-  ![statistik deskriptif](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Screenshot%202025-05-26%20080032.png)
+  ![statistik deskriptif](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Screenshot%202025-05-26%20080032.png
+)
   Berdasarkan hasil tersebut, dapat disimpulkan bahwa dataset tersebut menunjukkan kondisi agrikultur yang cukup beragam.
 - Setelah dilakukan pengecekan, dataset ini juga sudah dalam kondisi bersih yaitu tidak memiliki *missing value* maupun data duplikat.
 
 ### EDA - Pengecekan Outlier
 - Pengecekan outlier dilakukan pada data numerik dengan hasil sebagai berikut.
   
-  ![outlier awal](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Outlier%20Awal.png)
+  ![outlier awal](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Outlier%20Awal.png)
   Pada visualisasi tersebut outlier tidak terlihat jelas dikarenakan rentang data yang tidak sama antar variabel, sehingga perlu dilakukan normalisasi terlebih dahulu
 - Setelah dilakukan normalisasi, outlier semakin terlihat dengan jelas dan kemudian dilakukan teknik *Interquartile Range* untuk menangani outlier tersebut.
   
-  ![outlier setelah normalisasi](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Outlier%20Setelah%20Normalisasi.png)
+  ![outlier setelah normalisasi](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Outlier%20Setelah%20Normalisasi.png)
   
 - Setelah diterapkan teknik *Interquartile Range*, pada boxplot terlihat tidak ada lagi outlier pada setiap variabel. Hasil dari penanganan outlier adalah sebagai berikut.
-  ![outlier cleaned](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Outlier%20Cleaned.png)
+  ![outlier cleaned](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Outlier%20Cleaned.png)
 
   Konsep *Interquartile Range (IQR)*:
   - Identifikasi outlier dengan metode *Interquartile Range*, yaitu dengan menghitung selisih antara Q3 dan Q1.
@@ -94,13 +95,13 @@ Adapun variabel yang dihapus atau tidak digunakan dalam model prediksi karena ti
 
 ### EDA - Analisis Univariate
 
-![univariate analysis](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Univariate%20Analysis.png)
+![univariate analysis](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Univariate%20Analysis.png)
 
 Setelah dilakukan visualisasi distribusi, terlihat bahwa frekuensi setiap variabel kategorik terutama variabel target tidak seimbang, sehingga diperlukan penanganan lebih lanjut untuk menghindari bias dalam memprediksi data yang distribusi kelasnya minoritas pada model.
 
 ### EDA - Correlation Matrix
 
-![correlation matrix](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Matrix%20Correlation.png)
+![correlation matrix](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Matrix%20Correlation.png)
 
 ## Data Preparation
 
@@ -189,7 +190,7 @@ Metrik evaluasi yang digunakan untuk mengevaluasi model setelah dilakukan pelati
 
 1. *Random Forest Baseline*
    
-   ![confusion matrix baseline](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Confusion%20Matrix%20Base.png)
+   ![confusion matrix baseline](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Confusion%20Matrix%20Base.png)
 
    - Berdasarkan *confusion matrix* tersebut, secara keseluruhan model dapat memprediksi seluruh kelas dengan baik, hanya ada beberapa kelas yang salah prediksi.
    - Sebaran kelas terbanyak terdapat pada jenis pupuk `Urea`, `DAP`, `MOP`, `SSP`, `19:19:19 NPK`, dan `Magnesium Sulphate` dengan detail sebagai berikut.
@@ -202,7 +203,7 @@ Metrik evaluasi yang digunakan untuk mengevaluasi model setelah dilakukan pelati
 
 2. *Random Forest Hyperparameter Tuning*
    
-   ![confusion matrix tuning](https://github.com/VibyLadyscha/project-predictive-analytics/blob/main/img/Confusion%20Matrix%20Tunned.png)
+   ![confusion matrix tuning](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Confusion%20Matrix%20Tunned.png)
 
    - Berdasarkan *confusion matrix* tersebut, secara keseluruhan model dapat memprediksi seluruh kelas dengan baik, hanya ada beberapa kelas yang salah prediksi.
    - Sebaran kelas terbanyak terdapat pada jenis pupuk `Urea`, `DAP`, `MOP`, `SSP`, `19:19:19 NPK`, dan `Magnesium Sulphate` dengan detail sebagai berikut.
