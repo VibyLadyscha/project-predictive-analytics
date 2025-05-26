@@ -138,12 +138,40 @@ Agar dapat diproses oleh model *machine learning*, perlu dilakukan perubahan var
 
 ## Modeling
 
-Pada proyek ini, modeling dilakukan menggunakan algoritma *Random Forest*. Selain menguji model *baseline*, saya juga melakukan *hyperparameter tuning* pada model tersebut untuk melihat apakah akurasi yang dihasilkan lebih baik atau tidak.
+Pada proyek ini, modeling dilakukan menggunakan algoritma *Random Forest*. *Random Forest* adalah algoritma *machine learning ensemble* yang menggabungkan beberapa *decision tree* untuk meningkatkan akurasi prediksi. Algoritma ini bekerja dengan membuat banyak *decision tree* secara acak dan kemudian menggunakan voting untuk memprediksi kategori atau nilai data baru. Selain menguji model *baseline*, saya juga melakukan *hyperparameter tuning* pada model tersebut untuk melihat apakah akurasi yang dihasilkan lebih baik atau tidak.
 
 1. *Random Forest Baseline*
-   Penjelasan
+   - Model *baseline* dibangun menggunakan parameter *default* dari algoritma *RandomForestClassifier*, dengan penambahan `random_state` untuk menjamin reprodusibilitas hasil.
+     ```python
+      rf_model_base = MultiOutputClassifier(RandomForestClassifier(random_state=42))
+      rf_model_base.fit(X_train_resampled, y_train_resampled)
+      ```
+   - Kelebihan *Random Forest*:
+     - Mampu menangani fitur numerik dan kategorikal dengan baik.
+     - Kuat terhadap overfitting karena menggunakan banyak pohon keputusan.
+     - Memberikan estimasi pentingnya fitur.
+   - Kekurangan *Random Forest*:
+     - Waktu pelatihan lebih lama dibanding model yang lebih sederhana.
+     - Sulit untuk diinterpretasi karena merupakan ensemble model.
+
 2. *Random Forest Hyperparameter Tuning*
-   Penjelasan
+   - Proses hyperparameter tuning dengan mengatur beberapa parameter penting.
+    ```python
+       rf_model_tunned = MultiOutputClassifier(
+       RandomForestClassifier(
+           max_depth=15,
+           max_features='sqrt',
+           min_samples_split=5,
+           random_state=42
+          )
+       )
+       rf_model_tunned.fit(X_train_resampled, y_train_resampled)
+    ```
+   - Penjelasan parameter yang digunakan:
+      - `max_depth=15` → untuk membatasi kedalaman pohon dan mengurangi risiko overfitting.
+      - `max_features='sqrt'` → agar setiap pohon menggunakan subset fitur secara acak.
+      - `min_samples_split=5` → untuk mengontrol jumlah minimum sampel yang dibutuhkan agar sebuah node dapat di-split.
+   - Model tuned diharapkan memberikan performa yang lebih baik di data pengujian karena telah disesuaikan untuk menangani kompleksitas data secara lebih optimal dibandingkan model default. Evaluasi dilakukan menggunakan metrik accuracy, precision, recall, dan F1-score terhadap data uji untuk melihat sejauh mana tuning memberikan dampak terhadap prediksi.
 
 Tahapan ini membahas mengenai model machine learning yang digunakan untuk menyelesaikan permasalahan. Anda perlu menjelaskan tahapan dan parameter yang digunakan pada proses pemodelan.
 
