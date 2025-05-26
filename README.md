@@ -106,25 +106,35 @@ Setelah dilakukan visualisasi distribusi, terlihat bahwa frekuensi setiap variab
 
 ### Encoding
 
-Agar dapat diproses oleh model *machine learning*, perlu dilakukan perubahan variabel kategorik menjadi variabel numerik terlebih dahulu.
+Agar dapat diproses oleh model *machine learning*, perlu dilakukan perubahan variabel kategorik menjadi variabel numerik terlebih dahulu sehingga model dapat mempelajarinya dengan efektif.
 
 1. Label Encoding
-   Penjelasan
+   - Pada tahap ini, dilakukan transformasi terhadap variabel kategorikal `Soil_color,` `Crop`, dan `Fertilizer` menjadi representasi numerik menggunakan teknik *Label Encoding*. Teknik ini digunakan karena beberapa algoritma machine learning, salah satunya *Random Forest* dapat bekerja langsung dengan data numerik.
+   - *Label encoding* diperlukan agar variabel kategorikal dapat diolah dengan baik oleh model. Selain itu, encoder ini disimpan untuk proses *inverse transform* di tahap interpretasi hasil.
 2. One-Hot Encoding
-   Penjelasan
+   - Setelah dilakukan *label encoding*, variabel kategorikal seperti `Soil_color` dan `Crop` kemudian dikonversi menjadi bentuk *one-hot encoding*. Teknik ini digunakan untuk menghindari pemodelan urutan atau hierarki yang salah pada data kategorikal.
+   - *One-hot encoding* hanya diterapkan pada variabel kategorikal yang digunakan sebagai input model, bukan pada target variabel atau data uji.
+      ```python
+      X = pd.get_dummies(X, columns=categorical_cols, drop_first=True)
+      ```
+   - Penggunaan `drop_first=True` bertujuan untuk menghindari multikolinearitas dengan menghapus satu kategori sebagai referensi.
 
 ### Splitting dan Oversampling
 
 1. Splitting Data
-   Penjelasan
+   - Dataset dibagi menjadi 80% data untuk pelatihan *(X_train, y_train)* dan 20% untuk pengujian *(X_test, y_test)* menggunakan `train_test_split`.
+      ```python
+      X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+      ```
+   - Parameter `random state` di-set dengan nilai 42 untuk memastikan konsistensi terhadap hasil pembagian data.
+   - Splitting diperlukan untuk menguji kemampuan generalisasi model. Data training digunakan untuk membangun model, sementara data testing digunakan untuk mengukur performa model pada data yang belum pernah dilihat.
 2. Oversampling Data
-   Penjelasan
-
-Pada bagian ini Anda menerapkan dan menyebutkan teknik data preparation yang dilakukan. Teknik yang digunakan pada notebook dan laporan harus berurutan.
-
-**Rubrik/Kriteria Tambahan (Opsional)**: 
-- Menjelaskan proses data preparation yang dilakukan
-- Menjelaskan alasan mengapa diperlukan tahapan data preparation tersebut.
+   - Teknik *Random Oversampling* diterapkan pada data pelatihan (*X_train* dan *y_train*) untuk mengatasi ketidakseimbangan kelas pada variabel target `Fertilizer`.
+     ```python
+      X_train_resampled, y_train_resampled = RandomOverSampler(random_state=42).fit_resample(X_train, y_train)
+      ```
+   - Ketidakseimbangan kelas dapat menyebabkan model bias terhadap kelas mayoritas, sehingga oversampling memperbanyak sampel kelas minoritas agar model memiliki representasi yang lebih seimbang dan meningkatkan performa prediksi.
+   - Proses *oversampling* hanya dilakukan pada data pelatihan untuk mencegah kebocoran data (*data leakage*) ke dalam data pengujian, sehingga evaluasi model tetap valid.
 
 ## Modeling
 
