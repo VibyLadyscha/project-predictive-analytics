@@ -80,18 +80,9 @@ Adapun variabel yang dihapus atau tidak digunakan dalam model prediksi karena ti
   
   ![outlier awal](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Outlier%20Awal.png)
   Pada visualisasi tersebut outlier tidak terlihat jelas dikarenakan rentang data yang tidak sama antar variabel, sehingga perlu dilakukan normalisasi terlebih dahulu
-- Setelah dilakukan normalisasi, outlier semakin terlihat dengan jelas dan kemudian dilakukan teknik *Interquartile Range* untuk menangani outlier tersebut.
+- Setelah dilakukan normalisasi, outlier semakin terlihat dengan jelas dan kemudian dilakukan teknik *capping* untuk menangani outlier tersebut.
   
   ![outlier setelah normalisasi](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Outlier%20Setelah%20Normalisasi.png)
-  
-- Setelah diterapkan teknik *Interquartile Range*, pada boxplot terlihat tidak ada lagi outlier pada setiap variabel. Hasil dari penanganan outlier adalah sebagai berikut.
-  ![outlier cleaned](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Outlier%20Cleaned.png)
-
-  Konsep *Interquartile Range (IQR)*:
-  - Identifikasi outlier dengan metode *Interquartile Range*, yaitu dengan menghitung selisih antara Q3 dan Q1.
-  - Nilai ekstrem di luar batas bawah `(Q1 - 1.5×IQR)` dan batas atas `(Q3 + 1.5×IQR)` dianggap outlier, lalu dilakukan capping atau penghapusan terhadap nilai-nilai tersebut.
-     - Jika x lebih kecil dari batas bawah, ganti dengan *lower_limit*, jika lebih besar dari batas atas, ganti dengan *upper_limit*.
-     - Jika tidak memenuhi keduanya, maka x tetap dipertahankan.
 
 ### EDA - Analisis Univariate
 
@@ -104,6 +95,18 @@ Setelah dilakukan visualisasi distribusi, terlihat bahwa frekuensi setiap variab
 ![correlation matrix](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Matrix%20Correlation.png)
 
 ## Data Preparation
+
+### Penanganan Outlier
+
+Outlier yamg ada dilakukan penanganan dengan teknik *capping* yaitu menggantikan nilai outlier dengan nilai *lower_limit* dan *upper_limit*. Setelah diterapkan teknik *capping*, pada boxplot terlihat tidak ada lagi outlier pada setiap variabel. Hasil dari penanganan outlier adalah sebagai berikut.
+
+![outlier cleaned](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Outlier%20Cleaned.png)
+
+Konsep *capping*:
+- Identifikasi outlier dengan metode *Interquartile Range*, yaitu dengan menghitung selisih antara Q3 dan Q1.
+- Nilai ekstrem di luar batas bawah `(Q1 - 1.5 × IQR)` dan batas atas `(Q3 + 1.5 × IQR)` dianggap outlier, lalu dilakukan capping terhadap nilai-nilai tersebut.
+  - Jika x lebih kecil dari batas bawah, ganti dengan *lower_limit*, jika lebih besar dari batas atas, ganti dengan *upper_limit*.
+  - Jika tidak memenuhi keduanya, maka x tetap dipertahankan.
 
 ### Encoding
 
@@ -239,26 +242,26 @@ $$\text{F1 Score} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{
 
 | Model                  | Train Accuracy | Test Accuracy | Precision | Recall   | F1-Score |
 |------------------------|----------------|---------------|-----------|----------|----------|
-| Random Forest (Base)   | 0.999855       | 0.937984      | 0.938884  | 0.937984 | 0.937127 |
-| Random Forest (Tuned)  | 0.979247       | 0.770764      | 0.819864  | 0.770764 | 0.764513 |
+| Random Forest (Base)   | 0.999855       | 0.941307      | 0.941431  | 0.941307 | 0.939894 |
+| Random Forest (Tuned)  | 0.979102       | 0.768549      | 0.817174  | 0.768549 | 0.762358 |
 
 1. *Random Forest Baseline*
    - *Train Accuracy* yang sangat tinggi yaitu 0.999855, menunjukkan bahwa model hampir sempurna mempelajari data latih.
-   - *Test Accuracy* juga tinggi yaitu 0.937984, menunjukkan performa yang sangat baik di data uji.
+   - *Test Accuracy* juga tinggi yaitu 0.941307, menunjukkan performa yang sangat baik di data uji.
    - *Precision*, *Recall*, dan *F1-Score* juga seimbang dan tinggi, sekitar 0.937.
    - Akurasi training yang terlalu tinggi dibandingkan dengan akurasi testing bisa menjadi indikasi adanya *overfitting*, di mana model terlalu cocok dengan data latih namun berisiko kurang generalisasi ke data baru.
 
 2. *Random Forest Hyperparameter Tuning*
-   - Setelah dilakukan *tuning*, *Train Accuracy* turun menjadi 0.979247, menandakan bahwa model tidak terlalu overfit terhadap data pelatihan.
-   - *Test Accuracy* juga menurun secara signifikan menjadi 0.770764, menunjukkan penurunan performa di data uji.
-   - *Precision* dan *Recall* juga ikut menurun, meskipun masih cukup baik di angka 0.82 dan 0.77.
-   - *F1-Score* menurun menjadi 0.764 yang menunjukkan adanya *trade-off* akibat tuning. Hal tersebut kemungkinan terjadi karena model menjadi lebih sederhana, parameter yang dipilih kurang optimal, atau tuning berlebihan dalam menghindari *overfitting* hingga menurunkan akurasi model.
+   - Setelah dilakukan *tuning*, *Train Accuracy* turun menjadi 0.979102, menandakan bahwa model tidak terlalu overfit terhadap data pelatihan.
+   - *Test Accuracy* juga menurun secara signifikan menjadi 0.768549, menunjukkan penurunan performa di data uji.
+   - *Precision* dan *Recall* juga ikut menurun, meskipun masih cukup baik di angka 0.81 dan 0.77.
+   - *F1-Score* menurun menjadi 0.762 yang menunjukkan adanya *trade-off* akibat tuning. Hal tersebut kemungkinan terjadi karena model menjadi lebih sederhana, parameter yang dipilih kurang optimal, atau tuning berlebihan dalam menghindari *overfitting* hingga menurunkan akurasi model.
 
 ## Summary
 
-Proyek ini berhasil membangun sistem prediksi jenis pupuk berbasis algoritma *machine learning* dengan pendekatan *Random Forest* menggunakan data lingkungan seperti pH tanah, suhu, kelembaban, curah hujan, dan jenis tanaman. Berdasarkan hasil evaluasi, model *Random Forest Baseline* menunjukkan performa terbaik dengan akurasi tinggi pada data uji sebesar 93.79%, serta nilai *Precision*, *Recall*, dan *F1-score* yang seimbang di kisaran 93.7%, mengindikasikan model mampu memberikan rekomendasi pupuk secara tepat dan konsisten.
+Proyek ini berhasil membangun sistem prediksi jenis pupuk berbasis algoritma *machine learning* dengan pendekatan *Random Forest* menggunakan data lingkungan seperti pH tanah, suhu, kelembaban, curah hujan, dan jenis tanaman. Berdasarkan hasil evaluasi, model *Random Forest Baseline* menunjukkan performa terbaik dengan akurasi tinggi pada data uji sebesar 94.13%, serta nilai *Precision*, *Recall*, dan *F1-score* yang seimbang di kisaran 94%, mengindikasikan model mampu memberikan rekomendasi pupuk secara tepat dan konsisten.
 
-Ketika dilakukan *hyperparameter tuning* terhadap model, justru terjadi penurunan performa yang cukup signifikan, dengan akurasi uji menurun menjadi 77.07%. Hal ini menunjukkan bahwa model *baseline* sebenarnya sudah cukup optimal, dan penyesuaian parameter justru menurunkan kompleksitas model secara berlebihan sehingga mengurangi kemampuannya dalam menangkap pola pada data.
+Ketika dilakukan *hyperparameter tuning* terhadap model, justru terjadi penurunan performa yang cukup signifikan, dengan akurasi uji menurun menjadi 76.85%. Hal ini menunjukkan bahwa model *baseline* sebenarnya sudah cukup optimal, dan penyesuaian parameter justru menurunkan kompleksitas model secara berlebihan sehingga mengurangi kemampuannya dalam menangkap pola pada data.
 
 Hasil ini menjawab problem utama yang diangkat yaitu bagaimana membangun model prediksi yang akurat untuk membantu petani dalam memilih jenis pupuk yang sesuai dengan kondisi lahannya. Sistem yang dibangun mampu mengatasi keterbatasan dalam pengambilan keputusan secara manual yang selama ini membutuhkan waktu, tenaga, dan pengetahuan teknis yang tinggi. Selain itu, model yang dihasilkan terbukti efektif dalam memproses data lingkungan dan memberikan rekomendasi pupuk secara otomatis, sehingga mendukung efisiensi dalam proses pemupukan dan berpotensi meningkatkan produktivitas pertanian. Keterkaitan antara hasil proyek ini dengan tujuan yang ditetapkan juga sangat jelas yaitu model prediktif berhasil dibangun dan dioptimalkan, meskipun *tuning* belum memberikan hasil yang lebih baik, serta solusi berbasis data berhasil diwujudkan sebagai alat bantu pengambilan keputusan bagi petani.
 
