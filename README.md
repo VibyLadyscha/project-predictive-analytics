@@ -147,7 +147,7 @@ Pada proyek ini, modeling dilakukan menggunakan algoritma *Random Forest*. *Rand
 1. *Random Forest Baseline*
    - Model *baseline* dibangun menggunakan parameter *default* dari algoritma *RandomForestClassifier*, dengan penambahan `random_state` untuk menjamin reprodusibilitas hasil.
      ```python
-      rf_model_base = MultiOutputClassifier(RandomForestClassifier(random_state=42))
+      rf_model_base = RandomForestClassifier(random_state=42)
       rf_model_base.fit(X_train_resampled, y_train_resampled)
       ```
    - Kelebihan *Random Forest*:
@@ -161,8 +161,7 @@ Pada proyek ini, modeling dilakukan menggunakan algoritma *Random Forest*. *Rand
 2. *Random Forest Hyperparameter Tuning*
    - Proses *hyperparameter tuning* dengan mengatur beberapa parameter penting.
     ```python
-       rf_model_tunned = MultiOutputClassifier(
-       RandomForestClassifier(
+       rf_model_tunned = RandomForestClassifier(
            max_depth=15,
            max_features='sqrt',
            min_samples_split=5,
@@ -193,11 +192,11 @@ Metrik evaluasi yang digunakan untuk mengevaluasi model setelah dilakukan pelati
 
 1. *Random Forest Baseline*
    
-   ![confusion matrix baseline](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/)
+   ![confusion matrix baseline](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Confusion%20Matrix%20Base%20(rev).png)
 
    - Berdasarkan *confusion matrix* tersebut, secara keseluruhan model dapat memprediksi seluruh kelas dengan baik, hanya ada beberapa kelas yang salah prediksi.
    - Sebaran kelas terbanyak terdapat pada jenis pupuk `Urea`, `DAP`, `MOP`, `SSP`, `19:19:19 NPK`, dan `Magnesium Sulphate` dengan detail sebagai berikut.
-     - `Urea`: 249 benar, hanya beberapa salah diprediksi ke berbagai jenis NPK, "MOP", "SSP".
+     - `Urea`: 251 benar, hanya beberapa salah diprediksi ke berbagai jenis NPK, "MOP", "SSP".
      - `DAP`: 131 benar, hanya beberapa salah diprediksi sebagai "SSP" dan "Urea".
      - `MOP`: 118 benar, hanya beberapa salah diprediksi sebagai "SSP", "Sulphur", dan "Urea".
      - `SSP`: 67 benar.
@@ -206,16 +205,16 @@ Metrik evaluasi yang digunakan untuk mengevaluasi model setelah dilakukan pelati
 
 2. *Random Forest Hyperparameter Tuning*
    
-   ![confusion matrix tuning](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/)
+   ![confusion matrix tuning](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Confusion%20Matrix%20Tuned%20(rev).png)
 
    - Berdasarkan *confusion matrix* tersebut, secara keseluruhan model dapat memprediksi seluruh kelas dengan baik, hanya ada beberapa kelas yang salah prediksi.
    - Sebaran kelas terbanyak terdapat pada jenis pupuk `Urea`, `DAP`, `MOP`, `SSP`, `19:19:19 NPK`, dan `Magnesium Sulphate` dengan detail sebagai berikut.
-     - `Urea`: 150 benar, hanya beberapa salah diprediksi ke berbagai jenis NPK, "MOP", "SSP" dan "DAP".
-     - `DAP`: 93 benar, hanya beberapa salah diprediksi sebagai "SSP" dan "Urea".
+     - `Urea`: 153 benar, hanya beberapa salah diprediksi ke berbagai jenis NPK, "MOP", "SSP" dan "DAP".
+     - `DAP`: 88 benar, hanya beberapa salah diprediksi sebagai "SSP" dan "Urea".
      - `MOP`: 109 benar, hanya beberapa salah diprediksi sebagai "SSP", "Sulphur", dan "Urea".
-     - `SSP`: 62 benar.
+     - `SSP`: 63 benar.
      - `Magnesium Sulphate`: 40 benar.
-     - `19:19:19 NPK`: 90 benar.
+     - `19:19:19 NPK`: 89 benar.
    - Setelah dilakukan *hyperparameter tuning* justru hasil akurasi semakin turun jika dibandingkan dengan model *baseline*.
 
 ### Accuracy
