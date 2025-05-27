@@ -193,7 +193,7 @@ Metrik evaluasi yang digunakan untuk mengevaluasi model setelah dilakukan pelati
 
 1. *Random Forest Baseline*
    
-   ![confusion matrix baseline](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Confusion%20Matrix%20Base.png)
+   ![confusion matrix baseline](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/)
 
    - Berdasarkan *confusion matrix* tersebut, secara keseluruhan model dapat memprediksi seluruh kelas dengan baik, hanya ada beberapa kelas yang salah prediksi.
    - Sebaran kelas terbanyak terdapat pada jenis pupuk `Urea`, `DAP`, `MOP`, `SSP`, `19:19:19 NPK`, dan `Magnesium Sulphate` dengan detail sebagai berikut.
@@ -206,7 +206,7 @@ Metrik evaluasi yang digunakan untuk mengevaluasi model setelah dilakukan pelati
 
 2. *Random Forest Hyperparameter Tuning*
    
-   ![confusion matrix tuning](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Confusion%20Matrix%20Tunned.png)
+   ![confusion matrix tuning](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/)
 
    - Berdasarkan *confusion matrix* tersebut, secara keseluruhan model dapat memprediksi seluruh kelas dengan baik, hanya ada beberapa kelas yang salah prediksi.
    - Sebaran kelas terbanyak terdapat pada jenis pupuk `Urea`, `DAP`, `MOP`, `SSP`, `19:19:19 NPK`, dan `Magnesium Sulphate` dengan detail sebagai berikut.
