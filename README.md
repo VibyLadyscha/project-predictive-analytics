@@ -80,9 +80,6 @@ Adapun variabel yang dihapus atau tidak digunakan dalam model prediksi karena ti
   
   ![outlier awal](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Outlier%20Awal.png)
   Pada visualisasi tersebut outlier tidak terlihat jelas dikarenakan rentang data yang tidak sama antar variabel, sehingga perlu dilakukan normalisasi terlebih dahulu
-- Setelah dilakukan normalisasi, outlier semakin terlihat dengan jelas dan kemudian dilakukan teknik *capping* untuk menangani outlier tersebut.
-  
-  ![outlier setelah normalisasi](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Outlier%20Setelah%20Normalisasi.png)
 
 ### EDA - Analisis Univariate
 
@@ -107,9 +104,12 @@ data2 = pd.DataFrame(data2, columns=numerical_features)
 ```
 
 - Proses normalisasi dilakukan menggunakan `MinMaxScaler` dari pustaka `scikit-learn` yang bekerja dengan cara mengubah skala setiap fitur numerik ke dalam rentang [0, 1].
-- Fungsi `fit_transform()` diterapkan pada subset data yang hanya terdiri dari variabel numerik `(data[numerical_features])`.
-- Fungsi `fit_transform()` akan menghitung nilai minimum dan maksimum dari setiap fitur, lalu melakukan transformasi sehingga seluruh nilai berada dalam skala 0 hingga 1.
-- Hasil transformasi tersebut disimpan dalam `data2` yang kemudian dikonversi kembali menjadi *DataFrame* dengan nama kolom yang sama seperti sebelumnya. 
+- Fungsi `fit_transform()` diterapkan pada subset data yang hanya terdiri dari variabel numerik `(data[numerical_features])`. Fungsi ini akan menghitung nilai minimum dan maksimum dari setiap fitur, lalu melakukan transformasi sehingga seluruh nilai berada dalam skala 0 hingga 1.
+- Hasil transformasi tersebut disimpan dalam `data2` yang kemudian dikonversi kembali menjadi *DataFrame* dengan nama kolom yang sama seperti sebelumnya.
+
+Setelah dilakukan normalisasi, outlier semakin terlihat dengan jelas dan kemudian dilakukan teknik *capping* untuk menangani outlier tersebut.
+  
+  ![outlier setelah normalisasi](https://raw.githubusercontent.com/VibyLadyscha/project-predictive-analytics/main/img/Outlier%20Setelah%20Normalisasi.png)
 
 ### Penanganan Outlier
 
