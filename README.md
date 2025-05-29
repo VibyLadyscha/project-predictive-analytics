@@ -96,6 +96,21 @@ Setelah dilakukan visualisasi distribusi, terlihat bahwa frekuensi setiap variab
 
 ## Data Preparation
 
+### Normalisasi Data
+
+Pada tahap EDA terlihat bahwa setiap variabel numerik memiliki sebaran data yang cukup beragam, oleh karena itu dilakukan normalisasi terhadap variabel numerik tersebut dengan menggunakan `MinMaxScaler`. Hal ini bertujuan untuk meningkatkan performa model dalam memprediksi kelas `Fertilizer` yang diinginkan. 
+
+``` python
+scaler = MinMaxScaler()
+data2 = scaler.fit_transform(data[numerical_features])
+data2 = pd.DataFrame(data2, columns=numerical_features)
+```
+
+- Proses normalisasi dilakukan menggunakan `MinMaxScaler` dari pustaka `scikit-learn` yang bekerja dengan cara mengubah skala setiap fitur numerik ke dalam rentang [0, 1].
+- Fungsi `fit_transform()` diterapkan pada subset data yang hanya terdiri dari variabel numerik `(data[numerical_features])`.
+- Fungsi `fit_transform()` akan menghitung nilai minimum dan maksimum dari setiap fitur, lalu melakukan transformasi sehingga seluruh nilai berada dalam skala 0 hingga 1.
+- Hasil transformasi tersebut disimpan dalam `data2` yang kemudian dikonversi kembali menjadi *DataFrame* dengan nama kolom yang sama seperti sebelumnya. 
+
 ### Penanganan Outlier
 
 Outlier yamg ada dilakukan penanganan dengan teknik *capping* yaitu menggantikan nilai outlier dengan nilai *lower_limit* dan *upper_limit*. Setelah diterapkan teknik *capping*, pada boxplot terlihat tidak ada lagi outlier pada setiap variabel. Hasil dari penanganan outlier adalah sebagai berikut.
