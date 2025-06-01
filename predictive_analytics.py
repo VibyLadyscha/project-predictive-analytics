@@ -109,26 +109,7 @@ plt.title("Boxplot untuk Semua Variabel (Normalized)")
 plt.xticks(rotation=45)
 plt.show()
 
-"""Skala data sudah seragam, sekarang outlier terlihat jelas pada beberapa variabel sehingga perlu ditangani dengan teknik tertentu"""
-
-# Penanganan outlier menggunakan teknik Interquartile Range
-data4 = data2.copy()
-for col in numerical_features:
-    Q1 = data4[col].quantile(0.25)
-    Q3 = data4[col].quantile(0.75)
-    IQR = Q3 - Q1
-    lower_limit = Q1 - 1.5 * IQR
-    upper_limit = Q3 + 1.5 * IQR
-    data4[col] = data4[col].apply(lambda x: lower_limit if x < lower_limit else upper_limit if x > upper_limit else x)
-
-# Boxplot hasil penanganan outlier
-plt.figure(figsize=(12, 8))
-sns.boxplot(data=data4)
-plt.title("Boxplot untuk Semua Variabel (Handled Outlier)")
-plt.xticks(rotation=45)
-plt.show()
-
-"""Setelah diterapkan teknik Interquartile Range, pada boxplot terlihat tidak ada lagi outlier pada setiap variabel
+"""Skala data sudah seragam, sekarang outlier terlihat jelas pada beberapa variabel sehingga perlu ditangani dengan teknik tertentu
 
 ### 2.2.4 Analisis Univariate
 """
@@ -163,11 +144,7 @@ plt.show()
 """
 
 # Cek data yang sudah bersih
-data4.head()
-
-# Pisahkan fitur (X) dan target label (y)
-X = data4  # Cleaned data
-y = data[['Fertilizer']]  # Target output
+data3.head()
 
 # Correlation matrix fitur numerik
 plt.figure(figsize=(10, 8))
@@ -180,12 +157,42 @@ plt.tight_layout()
 
 """# **3. Data Preparation**
 
-## **3.1 Encoding**
+## **3.1 Penanganan Outlier**
+"""
+
+# Penanganan outlier menggunakan teknik capping
+data4 = data2.copy()
+for col in numerical_features:
+    Q1 = data4[col].quantile(0.25)
+    Q3 = data4[col].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_limit = Q1 - 1.5 * IQR
+    upper_limit = Q3 + 1.5 * IQR
+    data4[col] = data4[col].apply(lambda x: lower_limit if x < lower_limit else upper_limit if x > upper_limit else x)
+
+# Boxplot hasil penanganan outlier
+plt.figure(figsize=(12, 8))
+sns.boxplot(data=data4)
+plt.title("Boxplot untuk Semua Variabel (Handled Outlier)")
+plt.xticks(rotation=45)
+plt.show()
+
+"""Setelah diterapkan teknik capping, pada boxplot terlihat tidak ada lagi outlier pada setiap variabel
+
+## **3.2 Encoding**
 
 Encoding dilakukan agar data dapat diproses oleh model machine learning, sehingga perlu mengubah fitur kategorik menjadi fitur numerik terlebih dahulu
 
-### 3.1.1 Label Encoding
+### 3.2.1 Label Encoding
 """
+
+# Gabungkan data clean dengan kolom kategorik
+data5 = pd.concat([data4, data[categorical_features].reset_index(drop=True)], axis=1)
+data5.head()
+
+# Pisahkan fitur (X) dan target label (y)
+X = data5.iloc[:, :-1]  # Cleaned data
+y = data5[['Fertilizer']]  # Target output
 
 # Buat encoder untuk setiap kolom
 le_soil = LabelEncoder()
@@ -193,37 +200,32 @@ le_crop = LabelEncoder()
 le_fert = LabelEncoder()
 
 # Fit dan encode kolom
-le_soil.fit(data3['Soil_color'])
-data3['Soil_color'] = le_soil.transform(data3['Soil_color'])
+le_soil.fit(data5['Soil_color'])
+data5['Soil_color'] = le_soil.transform(data5['Soil_color'])
 
 le_crop.fit(data['Crop'])
-data3['Crop'] = le_crop.transform(data3['Crop'])
+data5['Crop'] = le_crop.transform(data5['Crop'])
 
 le_fert.fit(data['Fertilizer'])
 y['Fertilizer'] = le_fert.transform(y['Fertilizer'])
 
-"""### 3.1.2 One-Hot Encoding"""
+"""### 3.2.2 One-Hot Encoding"""
 
 # Mendefinisikan fitur numerik dan kategorikal
 numerical_cols = ['Nitrogen', 'Phosphorus', 'Potassium', 'pH', 'Rainfall', 'Temperature']
 categorical_cols = ['Soil_color', 'Crop']
 
 # Data training
-X = data3[numerical_cols + categorical_cols]
 X = pd.get_dummies(X, columns=categorical_cols, drop_first=True)
 
 # Simpan X.columns dan urutannya
 X_columns = X.columns
 
-# Scaling hanya kolom numerik
-scaler = MinMaxScaler()
-X[numerical_cols] = scaler.fit_transform(X[numerical_cols])
-
 X.head()
 
-"""## **3.2 Splitting dan Oversampling**
+"""## **3.3 Splitting dan Oversampling**
 
-### 3.2.1 Splitting Data
+### 3.3.1 Splitting Data
 """
 
 # Split data dengan rasio 80:20
@@ -232,7 +234,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 """- 80% data untuk pelatihan (X_train, y_train)
 - 20% data untuk pengujian (X_test, y_test)
 
-### 3.2.2 Oversampling Data
+### 3.3.2 Oversampling Data
 """
 
 # Oversampling hanya untuk data training
